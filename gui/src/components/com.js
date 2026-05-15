@@ -21,12 +21,13 @@ export default function EnhancedLoadBalancerDashboard() {
     const fetchData = async () => {
       try {
         // Fetch status data
-        const statusRes = await fetch("http://localhost:8000/status");
+        const LB_URL = process.env.NEXT_PUBLIC_LB_URL || "https://loadblancer.onrender.com";
+        const statusRes = await fetch(`${LB_URL}/status`);
         const statusData = await statusRes.json();
         setStatus(statusData);
 
         // Fetch metrics data
-        const metricsRes = await fetch("http://localhost:8000/metrics");
+        const metricsRes = await fetch(`${LB_URL}/metrics`);
         const metricsText = await metricsRes.text();
         setMetrics(metricsText);
 
